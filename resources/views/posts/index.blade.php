@@ -13,26 +13,26 @@
           {{ session('success')}}
         </div>
       @endif
-      <a class="btn btn-primary mb-2" href="/pertanyaan/create">create new question</a>
+      <a class="btn btn-primary mb-2" href="{{ route('pertanyaan.create')}}">create new question</a>
         <table class="table table-bordered">
           <thead>                  
             <tr>
               <th style="width: 10px">id</th>
               <th>nama_lengkap</th>
               <th>isi</th>
-              <th style="width: 40px">Action</th>
+              <th style="width: 40px">Actions</th>
             </tr>
           </thead>
           <tbody>
-              @forelse($pertanyaan as $key => $value)
+              @forelse($pertanyaan as $key => $value) 
               <tr>
                 <td> {{ $key + 1 }} </td>
                 <td> {{ $value->nama_lengkap }} </td>
                 <td> {{ $value->isi }} </td>
                 <td style ="display: flex;">
-                  <a href="/pertanyaan/{{$value->id}}" class="btn btn-info btn-sm" > show</a>
-                  <a href="/pertanyaan/{{$value->id}}/edit" class="btn btn-default btn-sm" > edit</a>
-                  <form action="/pertanyaan/{{$value->id}}" method="post">
+                  <a href="{{route('pertanyaan.show', ['pertanyaan' => $value->id])}}" class="btn btn-info btn-sm" > show</a>
+                  <a href="{{route('pertanyaan.edit', ['pertanyaan' => $value->id])}}" class="btn btn-default btn-sm" > edit</a>
+                  <form action="{{route('pertanyaan.store', ['pertanyaan' => $value->id])}}" method="post">
                   @csrf
                   @method('DELETE')
                       <input type="submit" value="delete" class="btn btn-danger btn-sm">
